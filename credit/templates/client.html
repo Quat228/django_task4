@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled">Disabled</a>
+      </li>
+    </ul>
+    <h3>It also work >>> </h3>
+    <form class="form-inline my-2 my-lg-0" method="post">
+      {% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="client">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<div class="container">
+  <table class="table table-hover table-dark mt-5">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Citizenship</th>
+        <th scope="col">Birth_year</th>
+        <th scope="col">Work_place</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if clients %}
+        {% for client in clients %}
+          <tr>
+            <th scope="row">{{ client.id }}</th>
+            <td>{{ client.name }}</td>
+            <td>{{ client.citizenship }}</td>
+            <td>{{ client.birth_year }}</td>
+            <td>{{ client.work_place }}</td>
+            <td>
+              <a href="{% url 'detail' client.id %}" class="btn btn-info">INFO</a>
+            </td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td>No any clients</td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
